@@ -1,0 +1,10 @@
+
+
+The problem is with the newest library Time:HiRes 1.9758 and the second value from tv_internal bounds.
+According to manual if ommited, the actual time is used - what is exactly what it does. So you need to apply this 
+command to script process_perfdata.pl:
+
+sed -s 's/tv_interval $t0, $t1/tv_interval $t0/g' -i process_perfdata.pl
+
+After that everything will work as it should. I experienced the problem with CentOS8 which is not providing older
+versions of HiRes library. Another symptom is that npcd cannot create .pnp-internal folder.
